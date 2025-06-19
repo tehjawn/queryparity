@@ -3,7 +3,7 @@
 import UpgradeModal from "@/components/UpgradeModal";
 // import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 function Home() {
   const searchParams = useSearchParams();
@@ -44,4 +44,28 @@ function Home() {
   );
 }
 
-export default Home;
+function Loading() {
+  return (
+    <div>
+      <p>Loading...</p>
+    </div>
+  );
+}
+
+function Error() {
+  return (
+    <div>
+      <p>Error loading data.</p>
+    </div>
+  );
+}
+
+function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Home />
+    </Suspense>
+  );
+}
+
+export default SuspenseWrapper;
